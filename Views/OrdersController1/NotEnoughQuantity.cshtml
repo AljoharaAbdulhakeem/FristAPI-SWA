@@ -1,0 +1,8 @@
+﻿@{
+    ViewData["Title"] = "NotEnoughQuantity";
+    var available = ViewBag.Available ?? 0;
+}
+
+<h2>NotEnoughQuantity</h2>
+<p> sorry , NotEnoughQuantity : <strong>@available</strong>.</p>
+<a class="btn btn-warning" asp-action="Create" asp-controller="OrdersController1"> Back </a>

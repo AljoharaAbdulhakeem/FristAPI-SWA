@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+
+
+*@
+
+@if (TempData["SuccessDEL"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessDEL"]
+    </div>
+}
+
+@{
+    var customer = (List<CustomerModel>)ViewData["customer"];
+
+    <table class="table">
+        <thread>
+
+            <tr>
+                <th scope="col">Customer ID : </th>
+                <th scope="col">Customer Name: </th>
+                <th scope="col">Contact info: </th>
+
+            </tr>
+        </thread>
+        <tbody>
+
+            @foreach (var customers in customer)
+            {
+
+                <tr>
+                    <th scope="row">@customers.Id</th>
+                    <td>@customers.Name</td>
+                    <td>@customers.ContactInfo</td>
+
+                    <td>
+                        <form method="post" asp-action="DeleteCustomer" asp-asp-controller="OrderItems" asp-route-id="@customers.Id">
+                            <input type="submit" class=" btn btn-primary" value="Delete" />
+                        </form>
+                    </td>
+
+                    <td>
+                        <a asp-controller="OrdersController1" asp-action="Index" asp-route-id="@customers.Id" class="btn btn-dark" style="color: white;">Details</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+
+
+    </table>
+}

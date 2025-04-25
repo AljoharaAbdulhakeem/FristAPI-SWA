@@ -1,0 +1,12 @@
+﻿@model CustomerLookupViewModel
+
+<h2> Customer Orders </h2>
+
+<form asp-action="Lookup" method="post">
+    <div class="form-group">
+        <label asp-for="Name">Customer Name : </label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary"> Lis all Order </button>
+</form>

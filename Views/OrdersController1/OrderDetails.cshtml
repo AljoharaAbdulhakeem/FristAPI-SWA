@@ -1,0 +1,33 @@
+﻿@model List<Order.Models.CustomerOrderDetailsViewModel>
+
+<h2> Order Details For  @ViewBag.CustomerName : </h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th> Product Name : </th>
+            <th>Quantity: </th>
+            <th>Price : </th>
+            <th>Total: </th>
+            <th> order Date: </th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price</td>
+                <td>@item.Total</td>
+                <td>@item.OrderDate.ToShortDateString()</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="alert alert-info">
+    <strong> Total Price of all Order</strong> @ViewBag.Total
+</div>

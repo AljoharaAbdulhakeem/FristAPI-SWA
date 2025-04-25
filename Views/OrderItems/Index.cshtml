@@ -1,0 +1,58 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+
+
+*@
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@{
+    var Items = (List<OrderItem>)ViewData["Items"];
+
+    <table class="table">
+     <thread>
+     
+       <tr>
+                <th scope="col">OrderItemID</th>
+                <th scope="col">OrderID</th>
+                <th scope="col">ProductID</th>
+ 
+       </tr>
+     </thread>
+     <tbody>
+
+     @foreach (var Item in Items){
+         
+      <tr>
+                    <th scope="row">@Item.OrderItemId</th>
+                    <td>@Item.OrderId</td>
+                    <td>@Item.ProductId</td>
+
+                    <td>
+                        <form method="post" asp-action="Delete" asp-asp-controller="OrderItems" asp-route-id="@Item.ProductId">
+                       <input type="submit" class=" btn btn-primary" value="Delete"/>
+                       </form>
+                    </td>
+
+                    <td>
+                        <a asp-controller="OrdersController1" asp-action="edit" asp-route-id="@Item.OrderItemId" class="btn btn-dark" style="color: white;">Edit</a>
+                    </td>
+
+                    <td>
+                        <a asp-controller="OrdersController1" asp-action="OrderDetails" asp-route-id="@Item.OrderItemId" class="btn btn-dark" style="color: white;">Details</a>
+                    </td>
+
+      </tr>
+     }  
+     </tbody>
+    
+    
+    
+    </table>
+}

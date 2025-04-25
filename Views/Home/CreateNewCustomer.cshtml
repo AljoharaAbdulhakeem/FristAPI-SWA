@@ -1,0 +1,28 @@
+﻿@model CustomerModel
+
+<form asp-action="CreateNewCustomer" method="post" class="form-horizontal" role="form">
+    @* <div class="form-group"> *@
+    @*     <label asp-for="Id">Customer ID</label> *@
+    @*     <div> *@
+    @*         <input asp-for="Id" class="form-control" /> *@
+    @*     </div> *@
+    @* </div> *@
+
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <div>
+            <input asp-for="Name" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ContactInfo">ContactInfo</label>
+        <div>
+            <input asp-for="ContactInfo" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </div>
+</form>

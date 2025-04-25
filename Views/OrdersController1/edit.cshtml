@@ -1,0 +1,19 @@
+﻿@model Order.Models.Ordermodel
+
+<h2>Edit Order Status</h2>
+
+<form asp-action="edit" method="post">
+    <input type="hidden" name="id" value="@Model.OrderId" />
+
+    <div class="form-group">
+        <label>Status</label>
+        <select name="status" class="form-control">
+            <option value="Pending" selected="@Model.Status == " Pending>Pending</option>
+            <option value="Confirmed" selected="@Model.Status == " Confirmed>Confirmed</option>
+            <option value="Delivered" selected="@Model.Status == " Delivered>Delivered</option>
+        </select>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Update Status</button>
+</form>

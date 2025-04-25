@@ -1,0 +1,51 @@
+﻿@model Product
+
+<form asp-action="CreateNewItem" method="post" class="form-horizontal" role="form">
+    @* <div class="form-group"> *@
+    @*     <label asp-for="OrderItemId ">OrderItemId: </label> *@
+    @*     <div> *@
+    @*         <input asp-for="OrderItemId" class="form-control" /> *@
+    @*     </div> *@
+    @* </div> *@
+
+    @* <div class="form-group"> *@
+    @*     <label asp-for="OrderId">OrderId: </label> *@
+    @*     <div> *@
+    @*         <input type="hidden" name="orderId" value="@ViewBag.OrderId" /> *@
+    @*     </div> *@
+    @* </div> *@
+
+
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <div>
+            <input asp-for="Name" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <div>
+            <input asp-for="Description" class="form-control" />
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="Price">Price: </label>
+        <div>
+            <input asp-for="Price" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Quantity">Quantity: </label>
+        <div>
+            <input asp-for="Quantity" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </div>
+</form>

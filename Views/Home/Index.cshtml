@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="text-center my-5">
+    <h1 class="display-4">Welcome</h1>
+    <p>
+        Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.
+    </p>
+</div>
+
+<div class="text-center mb-4">
+    <a asp-controller="user" asp-action="Index" class="btn btn-dark mx-2" style="color: white; width: 150px;">User</a>
+    <a asp-controller="Admin" asp-action="Index" class="btn btn-dark mx-2" style="color: white; width: 150px;">Admin</a>
+</div>
+
+<div class="text-center">
+    <p class="text-muted">THIS IS HOME INDEX</p>
+</div>

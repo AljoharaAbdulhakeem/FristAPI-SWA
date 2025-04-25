@@ -1,0 +1,58 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@{
+    var products = (List<Product>)ViewData["products"];
+
+    <table class="table">
+        <thread>
+
+            <tr>
+                <th scope="col">ProductID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quaantity</th>
+
+            </tr>
+        </thread>
+        <tbody>
+
+            @foreach (var Products in products)
+            {
+
+                <tr>
+                    <th scope="row">@Products.Id</th>
+                    <td>@Products.Name</td>
+                    <td>@Products.Description</td>
+                    <td> @Products.Price </td>
+                    <td> @Products.Quantity </td>
+
+                    <td>
+                        <form method="post" asp-action="Delete" asp-asp-controller="OrderItems" asp-route-id="@Products.Id">
+                            <input type="submit" class=" btn btn-primary" value="Delete" />
+                        </form>
+                    </td>
+
+                    <td>
+                        <a asp-controller="OrderItems" asp-action="editItems" asp-route-id="@Products.Id" class="btn btn-dark" style="color: white;">Edit</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+
+
+    </table>
+}
