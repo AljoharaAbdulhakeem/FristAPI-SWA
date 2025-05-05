@@ -15,6 +15,7 @@ namespace Order.Controllers
             _db = db;
         }
 
+        // seem with OrdersbyCustomerId  
         public IActionResult Index(int ? id)
         {
             var orders = _db.Order.Where(a => a.CustomerId == id).ToList();            
@@ -29,13 +30,13 @@ namespace Order.Controllers
             return View(orders);
         }
 
-        // GET
+        // GET : routing to the Loockup view 
         public IActionResult Lookup()
         {
             return View();
         }
 
-        // POST
+        // POST : send the info abut customer to the database
         [HttpPost]
         public IActionResult Lookup(CustomerLookupViewModel model)
         {
@@ -50,13 +51,11 @@ namespace Order.Controllers
             return RedirectToAction("OrdersbyCustomerId", new { id = customer.Id });
         }
 
-
+        // list all orders for specific Customer
         public IActionResult OrdersbyCustomerId(int? id)
         {
-
-            var orders = _db.Order.Where(a => a.CustomerId == id).ToList();
-
-
+            var orders = _db.Order.Where(o => o.CustomerId == id && !o.IsDeleted).ToList();
+            //var orders = _db.Order.Where(a => a.CustomerId == id).ToList();
             if (id == null || orders == null)
             {
                 return NotFound();
@@ -68,6 +67,7 @@ namespace Order.Controllers
         }
 
 
+        // List All Orders (Admin) and ignore The delted customer 
         public IActionResult AllOrders()
         {
             //var orders = _db.Order.ToList();
@@ -94,28 +94,27 @@ namespace Order.Controllers
         }
 
 
-        // error : casting string to dateTime , in code datetime in sql string 
+
         // customer : creat new order 
         [HttpPost]
         public IActionResult Create(Models.CreateOrderViewModel model)
         {
-            // نحصل على المنتج من جدول OrderItems
-            var item = _db.Products.FirstOrDefault(i => i.Id == model.ProductId);
+            // Get the Product from table (Products)
+            var item = _db.Products.FirstOrDefault(i => i.Id == model.ProductId); 
 
             if (item == null)
             {
-               // ModelState.AddModelError("", "Item not found");
-
-            
+                // lis t producta and customer 
                 model.Products = _db.Products.ToList();
                 model.Customers = _db.Customer.ToList();
 
                 return View("Item Not Found");
             }
 
+            //Check the Quantity 
             if (item.Quantity < model.Quantity)
             {
-                //ModelState.AddModelError("", $" Quantity {item.Quantity}");
+              
                 model.Products = _db.Products.ToList();
                 model.Customers = _db.Customer.ToList();
                 return View("NotEnoughQuantity");
@@ -131,8 +130,10 @@ namespace Order.Controllers
                 Total = 0
             };
 
+            // To save the changes and reflixing on the database , to connect (ordermodelid and orderitems)
             _db.Order.Add(newOrder);
-            _db.SaveChanges(); // عشان ينحفظ OrdermodelId و نقدر نربط معه OrderItems
+            _db.SaveChanges();  
+            
 
             var orderItem = new OrderItem
             {
@@ -141,17 +142,13 @@ namespace Order.Controllers
                 Quantity = model.Quantity
             };
 
-            //var orderItem = new Product
-            //{
-            //    Id = model.ProductId,
-            //    Quantity = model.Quantity,
-            //};
+
 
 
             _db.OrderItems.Add(orderItem);
             item.Quantity -= model.Quantity;
 
-            //_db.Products.Add(orderItem);
+
             _db.SaveChanges();
 
             return RedirectToAction("OrdersbyCustomerId", "OrdersController1", new { id = model.CustomerId });
@@ -175,7 +172,7 @@ namespace Order.Controllers
             return View(order); 
         }
 
-
+        // Reflix the status on database
         [HttpPost]
         public IActionResult edit(int id, string status)
         {
@@ -194,6 +191,7 @@ namespace Order.Controllers
             return RedirectToAction("AllOrders");
         }
 
+        // List Ordre Details for customer and calculate the total  
         public IActionResult OrderDetails(int customerId)
         {
             var customer = _db.Customer
@@ -222,7 +220,7 @@ namespace Order.Controllers
             return View(details);
         }
 
-
+        // Delet order ( Admin )
         [HttpPost]
         public IActionResult DeleteOrder(int id)
         {
@@ -234,11 +232,11 @@ namespace Order.Controllers
             return RedirectToAction("AllOrders");
         }
 
-
+        // delete order customer (User) soft deleted 
         [HttpPost]
-        public IActionResult DeleteOrderCustomer(int customerId)
+        public IActionResult DeleteOrderCustomer(int orderID)
         {
-            var order = _db.Order.ToList().FirstOrDefault(p => p.CustomerId == customerId);
+            var order = _db.Order.ToList().FirstOrDefault(p => p.OrderId == orderID);
 
             if (order == null)
             {
@@ -249,8 +247,9 @@ namespace Order.Controllers
             order.IsDeleted = true;
             _db.SaveChanges();
             TempData["SuccessDEL"] = "Delet Successfully";
-            return RedirectToAction("OrdersbyCustomerId", "OrdersController1", new { customerId = order.CustomerId });
+            return RedirectToAction("OrdersbyCustomerId" , "OrdersController1", new { id = order.OrderId });
         }
+
 
 
 

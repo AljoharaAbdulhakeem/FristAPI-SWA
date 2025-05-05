@@ -13,7 +13,7 @@ namespace OrderItems.Controllers
         {
             _db = db;
         }
-
+        // List All Product 
         //GET /OrderItems
         public IActionResult Index()
         {
@@ -21,7 +21,7 @@ namespace OrderItems.Controllers
             ViewData["Items"] = Items;
             return View();
         }
-
+        // List All Customer And Ignore any Deleted Customer (Soft Deleted)
         public IActionResult AllCustomer()
         {
             var customer = _db.Customer.Where(c => !c.IsDeleted).ToList();
@@ -29,11 +29,13 @@ namespace OrderItems.Controllers
             return View();
         }
 
+        // Routing to View To Add New Product 
         public IActionResult CreateNewItem()
         {
             return View();
         }
 
+        // Routing to List All Product And Edit/Delete
         public IActionResult Products()
         {
             var products = _db.Products.ToList();
@@ -41,7 +43,7 @@ namespace OrderItems.Controllers
             return View();
         }
 
-        //admin:create new item 
+        //admin:create new item send to the database
         [HttpPost]
         public IActionResult CreateNewItem([Bind( "Name","Description" ,"Price","Quantity")] Order.Models.Product itemNew)
         {
@@ -57,6 +59,7 @@ namespace OrderItems.Controllers
             return RedirectToAction("Products");
         }
 
+        // Check Quantity From Database
         [HttpPost]
         public IActionResult CheckQuantity(int itemId, int requestedQuantity)
         {
@@ -90,7 +93,7 @@ namespace OrderItems.Controllers
 
         }
 
-
+        // Delete Product (Admin)
         [HttpPost]
         public IActionResult Delete(int id)
         {
@@ -101,7 +104,7 @@ namespace OrderItems.Controllers
             return RedirectToAction("Products");
         }
 
-
+        // Delet Customer (Admin) Soft Delete
         [HttpPost]
         public IActionResult DeleteCustomer(int id)
         {
@@ -120,7 +123,7 @@ namespace OrderItems.Controllers
         }
 
 
-
+        // Rout to the View Edit Item
         public IActionResult editItems(int? id)
         {
             var Items = _db.Products.ToList().Find(p => p.Id == id);
@@ -134,6 +137,8 @@ namespace OrderItems.Controllers
 
         }
 
+
+        // Reflix the Edit on the dataebase
         [HttpPost]
         public IActionResult editItems(Order.Models.Product edit)
         {

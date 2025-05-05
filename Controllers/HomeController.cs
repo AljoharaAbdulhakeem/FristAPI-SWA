@@ -16,6 +16,7 @@ namespace Order.Controllers
             _db = db;
         }
 
+        // Rout to Presnt Two Button User \ Admin 
         public IActionResult Index()
         {
             return View();
@@ -25,12 +26,14 @@ namespace Order.Controllers
         {
             return View();
         }
-
+        // Rout to The page For Create New Customer 
         [HttpGet]
         public IActionResult CreateNewCustomer()
         {
             return View();
         }
+
+        //Post Info From page "Create New Customer To the Database And Routing to The index pgae
 
         [HttpPost]
         public IActionResult CreateNewCustomer([Bind( "Name", "ContactInfo")] CustomerModel NewCustomer)

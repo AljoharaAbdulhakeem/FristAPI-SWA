@@ -170,3 +170,4 @@ C:\Users\dokhi\source\repos\Order\Order\obj\Debug\net8.0\refint\Order.dll
 C:\Users\dokhi\source\repos\Order\Order\obj\Debug\net8.0\Order.pdb
 C:\Users\dokhi\source\repos\Order\Order\obj\Debug\net8.0\Order.genruntimeconfig.cache
 C:\Users\dokhi\source\repos\Order\Order\obj\Debug\net8.0\ref\Order.dll
+C:\Users\dokhi\source\repos\Order\Order\obj\Debug\net8.0\Order.sourcelink.json
